@@ -1,23 +1,22 @@
 node('master') {
     stage("Fetch Source Code") {
-        git ''
+        git 'https://github.com/Aditi-hub/python-jenkins-pipeline'
     }
     
-    dir('Lesson5') {
-        printMessage('Running Pipeline')
-        stage("Testing") {
-            sh 'python test_functions.py'
-        }
-        stage("Deployment") {
-            if (env.BRANCH_NAME == 'master') {
-                printMessage('Deploying the master branch')
-            } else {
-                printMessage("No deployment for branch [${env.BRANCH_NAME}]")
-            }
-            
-        }
-        printMessage('Pipeline Complete')
+    
+    stage("Testing") {
+        bat 'python test_functions.py'
     }
+    stage("Deployment") {
+        if (env.BRANCH_NAME == 'master') {
+            printMessage('Deploying the master branch')
+        } else {
+            printMessage("No deployment for branch [${env.BRANCH_NAME}]")
+        }
+
+    }
+    printMessage('Pipeline Complete')
+    
 }
 
 def printMessage(message) {
